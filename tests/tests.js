@@ -124,6 +124,22 @@ test("Save state (cookie method)", function() {
     ok($('#tnode-1-1').treegrid('isExpanded'), "tnode-1-1 expanded");
 });
 
+test("Save state (localStorage method)", function() {
+    ok(localStorage.getItem(saveStateName) !== undefined, "Local storage set");
+    localStorage.setItem(saveStateName, '1,5');
+    $('#tnode-1').treegrid('restoreState');
+    $('#tnode-1-3').treegrid('restoreState');
+    ok($('#tnode-1').treegrid('isExpanded'), "tnode-1 expanded");
+    ok($('#tnode-1-3').treegrid('isExpanded'), "tnode-1-3 expanded");
+    localStorage.setItem(saveStateName, '2');
+    $('#tnode-1').treegrid('restoreState');
+    $('#tnode-1-3').treegrid('restoreState');
+    $('#tnode-1-1').treegrid('restoreState');
+    ok($('#tnode-1').treegrid('isCollapsed'), "tnode-1 collapsed");
+    ok($('#tnode-1-3').treegrid('isCollapsed'), "tnode-1-3 collpased");
+    ok($('#tnode-1-1').treegrid('isExpanded'), "tnode-1-1 expanded");
+});
+
 test("Alphanumeric id", function() {
     equal($('#anode-1').treegrid('getDepth'), 0, "Return 0");
     equal($('#anode-1-1-2-1').treegrid('getDepth'), 3, "Return 3");
